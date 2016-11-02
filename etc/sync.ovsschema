@@ -1,0 +1,24 @@
+{
+    "name": "Cache",
+    "version": "0.0.1",
+    "cksum": "4176761817 11225",
+    "tables": {
+        "AgentSequence": {
+            "columns": {
+                "sequence": {
+                    "type": {"key": "integer", 
+                             "min": 0, "max": "unlimited"}}},
+            "isRoot": true},
+        "TenantBindig": {
+            "columns": {
+                "status": {"type": "string"},
+                "timestamp": {"type": "string"},
+                "counter": {
+                    "type": {"key": "integer", 
+                             "min": 0, "max": "unlimited"}},
+                "sequence": {
+                    "type": {"key": "integer", 
+                             "min": 0, "max": "unlimited"}}},
+            "isRoot": true}
+    }
+}
