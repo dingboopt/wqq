@@ -41,8 +41,8 @@ from sqlalchemy import func
 LOG = logging.getLogger(__name__)
 
 
-class Proxy(manager.Manager):
-    """Manager for controller proxy
+class LocalController(manager.Manager):
+    """Manager for controller
 
         API version history:
         1.0 initial Version
@@ -324,12 +324,12 @@ OPTS = [
 def register_opts(conf):
     conf.register_opts(OPTS)
 
-def main(manager='networking_controller.proxy.controller_proxy.Proxy'):
+def main(manager='networking_odl.controlle.LocalController'):
     register_opts(cfg.CONF)
     common_config.init(sys.argv[1:])
     config.setup_logging()
     server = neutron_service.Service.create(
-        binary='controller-proxy',
+        binary='local-controller',
         report_interval=1,
         periodic_interval=cfg.CONF.proxy_periodic_interval,
         manager=manager)
