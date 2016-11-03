@@ -16,7 +16,7 @@
                 "object_type": {"type": "string"},
                 "object_uuid": {"type": "string"},
                 "data": {
-                    "type": {"key": "string", "value": "string",
+                    "type": {"key":  "string", "value": "string",
                              "min": 0, "max": "unlimited"}}},
             "isRoot": true}
     }
