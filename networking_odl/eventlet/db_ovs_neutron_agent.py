@@ -36,7 +36,6 @@ from oslo_utils import importutils
 from neutron.common import config as common_config
 from neutron.common import utils as n_utils
 
-<<<<<<< HEAD
 from neutron.plugins.ml2.drivers.openvswitch.agent.openflow.ovs_ofctl \
     import br_int
 from neutron.plugins.ml2.drivers.openvswitch.agent.openflow.ovs_ofctl \
@@ -44,9 +43,6 @@ from neutron.plugins.ml2.drivers.openvswitch.agent.openflow.ovs_ofctl \
 from neutron.plugins.ml2.drivers.openvswitch.agent.openflow.ovs_ofctl \
     import br_tun
 from neutron.plugins.ml2.drivers.openvswitch.agent import ovs_neutron_agent
-
-=======
->>>>>>> branch 'master' of https://github.com/dingboopt/wqq.git
 
 LOG = logging.getLogger(__name__)
 cfg.CONF.import_group('OVS', 'neutron.plugins.ml2.drivers.openvswitch.agent.'
