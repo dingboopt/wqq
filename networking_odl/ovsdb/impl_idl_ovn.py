@@ -51,7 +51,7 @@ def get_ovn_idls(driver, trigger):
         return cls(driver, trigger)
 
     nb_ovn_idl = get_ovn_idl_retry(OvsdbNbOvnIdl, driver, trigger)
-    sb_ovn_idl = get_ovn_idl_retry(OvsdbSbOvnIdl, driver, trigger)
+    sb_ovn_idl = None
     return nb_ovn_idl, sb_ovn_idl
 
 
