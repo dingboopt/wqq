@@ -146,7 +146,7 @@ def main(bridge_classes):
     validate_tunnel_config(cfg.CONF.AGENT.tunnel_types, cfg.CONF.OVS.local_ip)
 
     try:
-        agent = OVSNeutronAgent(bridge_classes, cfg.CONF)
+        agent = DBOVSNeutronAgent(bridge_classes, cfg.CONF)
     except (RuntimeError, ValueError) as e:
         LOG.error(_LE("%s Agent terminated!"), e)
         sys.exit(1)
