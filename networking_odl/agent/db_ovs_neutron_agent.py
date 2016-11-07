@@ -59,6 +59,10 @@ from neutron.plugins.ml2.drivers.openvswitch.agent \
 from neutron.plugins.ml2.drivers.openvswitch.agent \
     import ovs_neutron_agent
 
+from networking_odl.ovsdb import impl_idl_ovn
+from networking_odl.ovsdb import ovsdb_monitor
+
+
 
 LOG = logging.getLogger(__name__)
 cfg.CONF.import_group('AGENT', 'neutron.plugins.ml2.drivers.openvswitch.'
@@ -134,6 +138,11 @@ class DBOVSNeutronAgent(ovs_neutron_agent.OVSNeutronAgent):
                                                      topics.AGENT,
                                                      consumers,
                                                      start_listening=False)
+
+        # NOTE(rtheis): This will initialize all workers (API, RPC,
+        # plugin service and OVN) with OVN IDL connections.
+        trigger = ovsdb_monitor.OvnWorker
+        self._nb_ovn, self._sb_ovn = impl_idl_ovn.get_ovn_idls(self, trigger)
 
 
 def validate_local_ip(local_ip):
