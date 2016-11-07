@@ -42,7 +42,7 @@ from neutron.plugins.ml2.drivers.openvswitch.agent.openflow.ovs_ofctl \
     import br_phys
 from neutron.plugins.ml2.drivers.openvswitch.agent.openflow.ovs_ofctl \
     import br_tun
-from neutron.plugins.ml2.drivers.openvswitch.agent import ovs_neutron_agent
+from networking_odl.agent import db_ovs_neutron_agent
 
 LOG = logging.getLogger(__name__)
 cfg.CONF.import_group('OVS', 'neutron.plugins.ml2.drivers.openvswitch.agent.'
@@ -71,5 +71,5 @@ def main():
         'br_phys': br_phys.OVSPhysicalBridge,
         'br_tun': br_tun.OVSTunnelBridge,
     }
-    ovs_neutron_agent.main(bridge_classes)
+    db_ovs_neutron_agent.main(bridge_classes)
 
