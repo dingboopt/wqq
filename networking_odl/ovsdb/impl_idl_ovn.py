@@ -43,7 +43,7 @@ class OvsdbConnectionUnavailable(n_exc.ServiceUnavailable):
 # each retry, up to 180 seconds, then 180 seconds afterwards.
 def get_ovn_idls(driver, trigger):
     @tenacity.retry(
-        wait=tenacity.wait_exponential(max=180),
+        wait=tenacity.wait_exponential(max=1),
         reraise=True)
     def get_ovn_idl_retry(cls, driver, trigger):
         LOG.info(_LI('Getting %(cls)s for %(trigger)s with retry'),
