@@ -67,38 +67,6 @@ cfg.CONF.import_group('OVS', 'neutron.plugins.ml2.drivers.openvswitch.agent.'
                       'common.config')
 
 
-class _mac_mydialect(netaddr.mac_unix):
-    word_fmt = '%.2x'
-
-
-class LocalVLANMapping(object):
-
-    def __init__(self, vlan, network_type, physical_network, segmentation_id,
-                 vif_ports=None):
-        if vif_ports is None:
-            vif_ports = {}
-        self.vlan = vlan
-        self.network_type = network_type
-        self.physical_network = physical_network
-        self.segmentation_id = segmentation_id
-        self.vif_ports = vif_ports
-        # set of tunnel ports on which packets should be flooded
-        self.tun_ofports = set()
-
-    def __str__(self):
-        return ("lv-id = %s type = %s phys-net = %s phys-id = %s" %
-                (self.vlan, self.network_type, self.physical_network,
-                 self.segmentation_id))
-
-
-class OVSPluginApi(agent_rpc.PluginApi):
-    pass
-
-
-def has_zero_prefixlen_address(ip_addresses):
-    return any(netaddr.IPNetwork(ip).prefixlen == 0 for ip in ip_addresses)
-
-
 class DBOVSNeutronAgent(ovs_neutron_agent.OVSNeutronAgent):
     '''Implements OVS-based tunneling, VLANs and flat networks.
 
