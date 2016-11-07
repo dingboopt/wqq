@@ -67,6 +67,10 @@ cfg.CONF.import_group('OVS', 'neutron.plugins.ml2.drivers.openvswitch.agent.'
                       'common.config')
 
 
+class OVSPluginApi(agent_rpc.PluginApi):
+    pass
+
+
 class DBOVSNeutronAgent(ovs_neutron_agent.OVSNeutronAgent):
     '''Implements OVS-based tunneling, VLANs and flat networks.
 
@@ -109,6 +113,27 @@ class DBOVSNeutronAgent(ovs_neutron_agent.OVSNeutronAgent):
         :param conf: an instance of ConfigOpts
         '''
         super(DBOVSNeutronAgent, self).__init__(bridge_classes, conf)
+
+    def setup_rpc(self):
+        self.plugin_rpc = OVSPluginApi(topics.PLUGIN)
+        self.sg_plugin_rpc = sg_rpc.SecurityGroupServerRpcApi(topics.PLUGIN)
+        self.dvr_plugin_rpc = dvr_rpc.DVRServerRpcApi(topics.PLUGIN)
+        self.state_rpc = agent_rpc.PluginReportStateAPI(topics.REPORTS)
+
+        # RPC network init
+        self.context = context.get_admin_context_without_session()
+        # Define the listening consumers for the agent
+        consumers = [[constants.TUNNEL, topics.UPDATE],
+                     [constants.TUNNEL, topics.DELETE],
+                     [topics.SECURITY_GROUP, topics.UPDATE],
+                     [topics.DVR, topics.UPDATE],
+                     [topics.NETWORK, topics.UPDATE]]
+        if self.l2_pop:
+            consumers.append([topics.L2POPULATION, topics.UPDATE])
+        self.connection = agent_rpc.create_consumers([self],
+                                                     topics.AGENT,
+                                                     consumers,
+                                                     start_listening=False)
 
 
 def validate_local_ip(local_ip):
