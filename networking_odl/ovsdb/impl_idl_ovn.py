@@ -80,11 +80,11 @@ class OvsdbNbOvnIdl(ovn_api.API):
             if OvsdbNbOvnIdl.ovsdb_connection is None:
                 OvsdbNbOvnIdl.ovsdb_connection = get_connection(
                     OvsdbNbOvnIdl, trigger)
-            if isinstance(OvsdbNbOvnIdl.ovsdb_connection,
-                          ovsdb_monitor.OvnConnection):
-                OvsdbNbOvnIdl.ovsdb_connection.start(driver)
-            else:
-                OvsdbNbOvnIdl.ovsdb_connection.start()
+#             if isinstance(OvsdbNbOvnIdl.ovsdb_connection,
+#                           ovsdb_monitor.OvnConnection):
+#                 OvsdbNbOvnIdl.ovsdb_connection.start(driver)
+#             else:
+            OvsdbNbOvnIdl.ovsdb_connection.start()
             self.idl = OvsdbNbOvnIdl.ovsdb_connection.idl
             self.ovsdb_timeout = cfg.get_ovn_ovsdb_timeout()
         except Exception as e:
