@@ -47,7 +47,7 @@ def get_ovn_idls(driver, trigger):
         reraise=True)
     def get_ovn_idl_retry(cls, driver, trigger):
         LOG.info(_LI('Getting %(cls)s for %(trigger)s with retry'),
-                 {'cls': cls.__name__, 'trigger': trigger.im_class.__name__})
+                 {'cls': cls.__name__, 'trigger': trigger.__name__})
         return cls(driver, trigger)
 
     nb_ovn_idl = get_ovn_idl_retry(OvsdbNbOvnIdl, driver, trigger)
@@ -57,7 +57,7 @@ def get_ovn_idls(driver, trigger):
 
 def get_connection(db_class, trigger=None):
     # The trigger is the start() method of the NeutronWorker class
-    if trigger and trigger.im_class == ovsdb_monitor.OvnWorker:
+    if trigger and trigger == ovsdb_monitor.OvnWorker:
         cls = ovsdb_monitor.OvnConnection
     else:
         cls = connection.Connection
